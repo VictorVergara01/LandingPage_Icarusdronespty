@@ -57,7 +57,7 @@ export function Nosotros() {
                 <h2
                   id="nosotros-heading"
                   className="font-serif font-bold mb-5 leading-tight"
-                  style={{ fontSize: 'clamp(1.75rem, 4vw, 2.75rem)', color: 'var(--text)' }}
+                  style={{ fontSize: 'clamp(2rem, 3.5vw, 2.8rem)', color: 'var(--text)' }}
                 >
                   Nacidos en Azuero,<br />
                   <span className="text-gradient-green">construidos para el campo</span>
@@ -129,7 +129,7 @@ export function Nosotros() {
               <h2
                 id="testimonios-heading"
                 className="font-serif font-bold"
-                style={{ fontSize: 'clamp(1.75rem, 4vw, 2.5rem)', color: 'var(--text)' }}
+                style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', color: 'var(--text)' }}
               >
                 Lo que dicen nuestros clientes
               </h2>
