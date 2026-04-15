@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hero Background Motion — Opciones</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: #0a0f0a;
+    color: #EEF5EE;
+    padding: 2rem 1.5rem 4rem;
+    min-height: 100vh;
+  }
+
+  h1 { font-size: 1.5rem; font-weight: 700; color: #22FF55; margin-bottom: .4rem; }
+  .subtitle { color: #9AB89A; font-size: .95rem; margin-bottom: 2.5rem; }
+
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+
+  .card {
+    border-radius: 1rem;
+    border: 2px solid rgba(0,204,53,0.18);
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color .25s, transform .2s, box-shadow .25s;
+    background: #0C160C;
+  }
+  .card:hover { border-color: rgba(0,204,53,0.6); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,204,53,0.15); }
+  .card.selected { border-color: #00CC35; box-shadow: 0 0 0 3px rgba(0,204,53,0.35), 0 12px 40px rgba(0,204,53,0.2); }
+  .card.selected .card-label { background: #00CC35; color: #030805; }
+
+  /* ── Preview box ── */
+  .preview {
+    position: relative;
+    height: 220px;
+    overflow: hidden;
+    background: #030805;
+  }
+
+  .card-label {
+    font-size: .7rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+    padding: .35rem .75rem; border-radius: 999px;
+    background: rgba(0,204,53,0.15); color: #22FF55;
+    border: 1px solid rgba(0,204,53,0.3);
+    display: inline-block;
+    transition: background .2s, color .2s;
+  }
+
+  .card-body { padding: 1.25rem 1.25rem 1.5rem; }
+  .card-body h3 { font-size: 1.1rem; font-weight: 700; color: #EEF5EE; margin: .75rem 0 .4rem; }
+  .card-body p { font-size: .88rem; color: #9AB89A; line-height: 1.5; }
+
+  /* ─────────────────────────────────────────
+     OPCIÓN A — Aurora / Plasma orgánico
+  ───────────────────────────────────────── */
+  .preview-a { background: #030805; }
+  .aurora-bg {
+    position: absolute; inset: -50%; width: 200%; height: 200%;
+    background:
+      radial-gradient(ellipse 80% 60% at 20% 60%, rgba(0,180,50,0.28) 0%, transparent 55%),
+      radial-gradient(ellipse 60% 80% at 80% 30%, rgba(0,120,30,0.2) 0%, transparent 55%),
+      radial-gradient(ellipse 50% 40% at 50% 80%, rgba(232,184,75,0.12) 0%, transparent 50%);
+    animation: aurora-drift 8s ease-in-out infinite alternate;
+    filter: blur(22px);
+  }
+  @keyframes aurora-drift {
+    0%   { transform: translate(0%,0%) scale(1); }
+    33%  { transform: translate(3%,-4%) scale(1.05); }
+    66%  { transform: translate(-4%,3%) scale(.97); }
+    100% { transform: translate(2%,5%) scale(1.03); }
+  }
+  .aurora-grid {
+    position: absolute; inset: 0;
+    background-image: linear-gradient(rgba(0,204,53,0.04) 1px,transparent 1px),
+                      linear-gradient(90deg, rgba(0,204,53,0.04) 1px,transparent 1px);
+    background-size: 40px 40px;
+  }
+  .aurora-text {
+    position: absolute; inset: 0; display: flex; flex-direction: column;
+    justify-content: flex-end; padding: 1.25rem 1.5rem;
+    background: linear-gradient(to top, rgba(3,8,5,.85) 0%, transparent 60%);
+  }
+  .aurora-text h4 { font-size: 1.3rem; font-weight: 900; color: #EEF5EE; margin-bottom: .2rem; }
+  .aurora-text span { font-size: .75rem; color: #22FF55; text-transform: uppercase; letter-spacing: .1em; }
+
+  /* ─────────────────────────────────────────
+     OPCIÓN B — Partículas en campo / WebGL-style
+  ───────────────────────────────────────── */
+  .preview-b { background: #030805; }
+  canvas#particles { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .particles-text {
+    position: absolute; inset: 0; display: flex; flex-direction: column;
+    justify-content: flex-end; padding: 1.25rem 1.5rem;
+    background: linear-gradient(to top, rgba(3,8,5,.85) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .particles-text h4 { font-size: 1.3rem; font-weight: 900; color: #EEF5EE; margin-bottom: .2rem; }
+  .particles-text span { font-size: .75rem; color: #22FF55; text-transform: uppercase; letter-spacing: .1em; }
+
+  /* ─────────────────────────────────────────
+     OPCIÓN C — Onda de campo / terrain wave
+  ───────────────────────────────────────── */
+  .preview-c { background: #030805; }
+  .wave-container {
+    position: absolute; inset: 0; overflow: hidden;
+  }
+  .wave-svg { position: absolute; bottom: 0; width: 100%; }
+  .wave-glow {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 120px;
+    background: linear-gradient(to top, rgba(0,204,53,0.08), transparent);
+  }
+  .wave-scanline {
+    position: absolute; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(0,204,53,0.5), transparent);
+    animation: wave-scan 3s linear infinite;
+  }
+  @keyframes wave-scan {
+    0%   { top: 0%; opacity: 0; }
+    10%  { opacity: 1; }
+    90%  { opacity: .5; }
+    100% { top: 100%; opacity: 0; }
+  }
+  .wave-text {
+    position: absolute; inset: 0; display: flex; flex-direction: column;
+    justify-content: flex-end; padding: 1.25rem 1.5rem;
+    background: linear-gradient(to top, rgba(3,8,5,.9) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .wave-text h4 { font-size: 1.3rem; font-weight: 900; color: #EEF5EE; margin-bottom: .2rem; }
+  .wave-text span { font-size: .75rem; color: #22FF55; text-transform: uppercase; letter-spacing: .1em; }
+
+  /* horizonte dots animados */
+  .dot-field {
+    position: absolute; inset: 0;
+    background-image: radial-gradient(circle, rgba(0,204,53,0.18) 1px, transparent 1px);
+    background-size: 24px 24px;
+    animation: dot-scroll 12s linear infinite;
+    mask-image: linear-gradient(to top, transparent 0%, rgba(0,0,0,.8) 40%, rgba(0,0,0,.2) 80%, transparent 100%);
+  }
+  @keyframes dot-scroll {
+    from { background-position: 0 0; }
+    to   { background-position: 0 -240px; }
+  }
+
+  /* ── confirm button ── */
+  .confirm-btn {
+    display: block; width: fit-content; margin: 3rem auto 0;
+    background: #00CC35; color: #030805;
+    font-weight: 700; font-size: 1rem;
+    padding: .875rem 2.5rem; border-radius: .5rem;
+    border: none; cursor: pointer;
+    transition: background .2s, transform .15s;
+  }
+  .confirm-btn:hover { background: #22FF55; transform: translateY(-2px); }
+  .confirm-btn:disabled { background: #3a5a3a; color: #6a8a6a; cursor: default; transform: none; }
+
+  .selection-hint { text-align: center; margin-top: 1rem; font-size: .85rem; color: #556855; }
+</style>
+</head>
+<body>
+
+<h1>Hero — Background Motion</h1>
+<p class="subtitle">Seleccioná la animación de fondo que más te gusta para el hero. Los colores se mantienen exactamente igual.</p>
+
+<div class="cards">
+
+  <!-- OPCIÓN A -->
+  <div class="card" data-choice="aurora" onclick="selectCard(this)">
+    <div class="preview preview-a">
+      <div class="aurora-bg"></div>
+      <div class="aurora-grid"></div>
+      <div class="aurora-text">
+        <span>Icarus Drones · Azuero</span>
+        <h4>Fumigación con drones</h4>
+      </div>
+    </div>
+    <div class="card-body">
+      <span class="card-label">Opción A</span>
+      <h3>Aurora Orgánica</h3>
+      <p>Gradientes vivos que se mueven lentamente como nubes de luz. Efecto suave y cinematográfico, sin distracciones. Muy elegante sobre video.</p>
+    </div>
+  </div>
+
+  <!-- OPCIÓN B -->
+  <div class="card" data-choice="particles" onclick="selectCard(this)">
+    <div class="preview preview-b">
+      <canvas id="particles" width="400" height="220"></canvas>
+      <div class="particles-text">
+        <span>Icarus Drones · Azuero</span>
+        <h4>Fumigación con drones</h4>
+      </div>
+    </div>
+    <div class="card-body">
+      <span class="card-label">Opción B</span>
+      <h3>Constelación de Partículas</h3>
+      <p>Red de puntos conectados que se mueven y redibujan en tiempo real. Estética tech/datos agrícolas. Alta energía visual, muy moderno.</p>
+    </div>
+  </div>
+
+  <!-- OPCIÓN C -->
+  <div class="card" data-choice="wave" onclick="selectCard(this)">
+    <div class="preview preview-c">
+      <div class="wave-container">
+        <div class="dot-field"></div>
+        <svg class="wave-svg" viewBox="0 0 800 120" preserveAspectRatio="none" height="120">
+          <defs>
+            <linearGradient id="wg" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="rgba(0,204,53,0.35)"/>
+              <stop offset="100%" stop-color="rgba(0,204,53,0.05)"/>
+            </linearGradient>
+          </defs>
+          <path id="wave1" fill="url(#wg)">
+            <animate attributeName="d"
+              dur="4s" repeatCount="indefinite"
+              values="
+                M0,60 C200,20 400,100 600,40 C700,10 750,70 800,50 L800,120 L0,120 Z;
+                M0,40 C150,80 350,20 550,70 C680,100 750,30 800,60 L800,120 L0,120 Z;
+                M0,70 C180,30 380,90 580,35 C700,5 760,65 800,45 L800,120 L0,120 Z;
+                M0,60 C200,20 400,100 600,40 C700,10 750,70 800,50 L800,120 L0,120 Z
+              "
+            />
+          </path>
+          <path id="wave2" fill="rgba(0,204,53,0.08)">
+            <animate attributeName="d"
+              dur="5.5s" repeatCount="indefinite"
+              values="
+                M0,80 C250,40 450,110 650,60 C730,30 780,80 800,70 L800,120 L0,120 Z;
+                M0,55 C200,95 400,30 600,85 C710,110 770,50 800,75 L800,120 L0,120 Z;
+                M0,90 C230,50 430,100 630,50 C720,20 775,75 800,65 L800,120 L0,120 Z;
+                M0,80 C250,40 450,110 650,60 C730,30 780,80 800,70 L800,120 L0,120 Z
+              "
+            />
+          </path>
+        </svg>
+        <div class="wave-glow"></div>
+        <div class="wave-scanline"></div>
+      </div>
+      <div class="wave-text">
+        <span>Icarus Drones · Azuero</span>
+        <h4>Fumigación con drones</h4>
+      </div>
+    </div>
+    <div class="card-body">
+      <span class="card-label">Opción C</span>
+      <h3>Terrain Wave + Dots</h3>
+      <p>Ondas SVG animadas que simulan el horizonte de la Península de Azuero. Grid de puntos con scroll y scanline HUD. Agrícola + tech.</p>
+    </div>
+  </div>
+
+</div>
+
+<p class="selection-hint" id="hint">Hacé clic en una opción para seleccionarla</p>
+<button class="confirm-btn" id="confirmBtn" disabled onclick="confirmSelection()">Confirmar selección →</button>
+
+<script src="http://localhost:57040/helper.js"></script>
+<script>
+  /* ── Canvas particles ── */
+  (function() {
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    const W = canvas.width, H = canvas.height;
+    const pts = Array.from({length: 60}, () => ({
+      x: Math.random() * W, y: Math.random() * H,
+      vx: (Math.random()-.5)*.4, vy: (Math.random()-.5)*.4,
+    }));
+    function draw() {
+      ctx.clearRect(0,0,W,H);
+      // connections
+      for(let i=0;i<pts.length;i++) for(let j=i+1;j<pts.length;j++) {
+        const dx = pts[i].x-pts[j].x, dy = pts[i].y-pts[j].y;
+        const d = Math.sqrt(dx*dx+dy*dy);
+        if(d<80) {
+          ctx.strokeStyle = `rgba(0,204,53,${.35*(1-d/80)})`;
+          ctx.lineWidth = .7;
+          ctx.beginPath(); ctx.moveTo(pts[i].x,pts[i].y); ctx.lineTo(pts[j].x,pts[j].y); ctx.stroke();
+        }
+      }
+      // dots
+      pts.forEach(p => {
+        ctx.fillStyle = 'rgba(0,204,53,.7)';
+        ctx.beginPath(); ctx.arc(p.x,p.y,1.5,0,Math.PI*2); ctx.fill();
+        p.x += p.vx; p.y += p.vy;
+        if(p.x<0||p.x>W) p.vx*=-1;
+        if(p.y<0||p.y>H) p.vy*=-1;
+      });
+      requestAnimationFrame(draw);
+    }
+    draw();
+  })();
+
+  /* ── Selection logic ── */
+  let selected = null;
+  function selectCard(el) {
+    document.querySelectorAll('.card').forEach(c => c.classList.remove('selected'));
+    el.classList.add('selected');
+    selected = el.dataset.choice;
+    document.getElementById('hint').textContent = `Seleccionaste: ${el.querySelector('h3').textContent}`;
+    document.getElementById('confirmBtn').disabled = false;
+    if(window.recordChoice) recordChoice(selected, el.querySelector('h3').textContent);
+  }
+  function confirmSelection() {
+    if(!selected) return;
+    if(window.recordChoice) recordChoice('confirmed:' + selected, 'Confirmado');
+    document.getElementById('hint').textContent = '✓ Selección confirmada — avisame en el chat para continuar.';
+    document.getElementById('confirmBtn').textContent = '✓ Confirmado';
+    document.getElementById('confirmBtn').disabled = true;
+  }
+</script>
+</body>
+</html>

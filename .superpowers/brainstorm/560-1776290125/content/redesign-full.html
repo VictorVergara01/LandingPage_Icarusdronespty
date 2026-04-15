@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Icarus Drones — Rediseño Full Dark Premium</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@300;400;600;700&display=swap');
+
+  *,*::before,*::after { box-sizing: border-box; margin:0; padding:0; }
+  :root {
+    --void:    #030805;
+    --dark:    #070F07;
+    --panel:   #0C160C;
+    --neon:    #00CC35;
+    --neon-lt: #22FF55;
+    --gold:    #E8B84B;
+    --straw:   #C4922A;
+    --text:    #EEF5EE;
+    --text-mid:#9AB89A;
+    --text-lt: #556855;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Source Sans 3', system-ui, sans-serif;
+    background: var(--dark);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ── HEADER ── */
+  .page-header {
+    background: rgba(3,8,5,.92);
+    border-bottom: 1px solid rgba(0,204,53,.12);
+    padding: 1rem 2.5rem;
+    display: flex; align-items: center; justify-content: space-between;
+    position: sticky; top: 0; z-index: 100;
+    backdrop-filter: blur(16px);
+  }
+  .logo { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 1.2rem; color: var(--text); }
+  .logo span { color: var(--neon); }
+  .nav-links { display: flex; gap: 2rem; }
+  .nav-links a { font-size: .875rem; font-weight: 600; color: var(--text-mid); text-decoration: none; transition: color .2s; }
+  .nav-links a:hover { color: var(--neon-lt); }
+  .nav-cta {
+    background: var(--neon); color: var(--void);
+    font-size: .875rem; font-weight: 700; padding: .6rem 1.25rem;
+    border-radius: .5rem; text-decoration: none;
+    transition: background .2s;
+  }
+
+  /* ─────────────────────────────────────────
+     HERO — Terrain Wave + Cinematic
+  ───────────────────────────────────────── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex; align-items: center;
+    overflow: hidden;
+    background: var(--void);
+  }
+
+  /* Dot field */
+  .hero-dots {
+    position: absolute; inset: 0;
+    background-image: radial-gradient(circle, rgba(0,204,53,0.14) 1px, transparent 1px);
+    background-size: 28px 28px;
+    animation: dot-scroll 18s linear infinite;
+    mask-image: linear-gradient(to top, transparent 0%, rgba(0,0,0,.6) 35%, rgba(0,0,0,.15) 75%, transparent 100%);
+  }
+  @keyframes dot-scroll {
+    from { background-position: 0 0; }
+    to   { background-position: 0 -280px; }
+  }
+
+  /* Aurora glow background */
+  .hero-aurora {
+    position: absolute; inset: -30% -20%;
+    background:
+      radial-gradient(ellipse 70% 50% at 15% 80%, rgba(0,150,40,0.22) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 60% at 85% 60%, rgba(0,100,25,0.15) 0%, transparent 55%),
+      radial-gradient(ellipse 40% 35% at 50% 95%, rgba(232,184,75,0.08) 0%, transparent 50%);
+    filter: blur(40px);
+    animation: aurora-slow 12s ease-in-out infinite alternate;
+  }
+  @keyframes aurora-slow {
+    0%   { transform: translate(0%,0%) scale(1); }
+    50%  { transform: translate(2%,-3%) scale(1.04); }
+    100% { transform: translate(-2%,2%) scale(.98); }
+  }
+
+  /* Terrain waves */
+  .hero-waves {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 200px;
+    pointer-events: none;
+  }
+  .hero-wave-glow {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 140px;
+    background: linear-gradient(to top, rgba(0,204,53,0.07), transparent);
+  }
+
+  /* Scanline */
+  .hero-scan {
+    position: absolute; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(0,204,53,0.4) 30%, rgba(0,204,53,0.6) 50%, rgba(0,204,53,0.4) 70%, transparent 100%);
+    animation: scanline-move 5s linear infinite;
+    pointer-events: none; z-index: 5;
+  }
+  @keyframes scanline-move {
+    0%   { top: 0; opacity: 0; }
+    5%   { opacity: 1; }
+    90%  { opacity: .4; }
+    100% { top: 100%; opacity: 0; }
+  }
+
+  /* Grid overlay */
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(0,204,53,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,204,53,0.025) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+
+  /* Content */
+  .hero-content {
+    position: relative; z-index: 10;
+    width: 100%; max-width: 1200px;
+    margin: 0 auto;
+    padding: 6rem 2.5rem 10rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: .6rem;
+    font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .14em;
+    color: var(--neon-lt);
+    background: rgba(0,204,53,0.08);
+    border: 1px solid rgba(0,204,53,0.25);
+    padding: .35rem .9rem; border-radius: 999px;
+    margin-bottom: 1.25rem;
+  }
+  .hero-eyebrow .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--neon);
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+  @keyframes pulse-dot {
+    0%,100% { opacity: 1; transform: scale(1); }
+    50%      { opacity: .4; transform: scale(.7); }
+  }
+
+  .hero-h1 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-size: clamp(3rem, 5.5vw, 5rem);
+    line-height: 1.05;
+    margin-bottom: 1.5rem;
+  }
+  .hero-h1 .line1 { color: var(--text); display: block; }
+  .hero-h1 .line2 {
+    display: block;
+    background: linear-gradient(135deg, #00a82c, #00CC35, #22FF55);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-h1 .line3 { color: var(--gold); display: block; }
+
+  .hero-sub {
+    font-size: 1.1rem; line-height: 1.65;
+    color: var(--text-mid);
+    max-width: 440px;
+    margin-bottom: 2.25rem;
+  }
+
+  .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 3rem; }
+  .btn-hero-primary {
+    display: inline-flex; align-items: center; gap: .5rem;
+    padding: .9rem 1.75rem;
+    background: var(--neon); color: var(--void);
+    font-weight: 700; font-size: 1rem; border-radius: .5rem;
+    text-decoration: none;
+    transition: background .2s, transform .15s, box-shadow .2s;
+  }
+  .btn-hero-primary:hover { background: var(--neon-lt); transform: translateY(-2px); box-shadow: 0 6px 24px rgba(0,204,53,.4); }
+  .btn-hero-outline {
+    display: inline-flex; align-items: center; gap: .5rem;
+    padding: .9rem 1.75rem;
+    background: transparent; color: var(--neon-lt);
+    font-weight: 600; font-size: 1rem; border-radius: .5rem;
+    border: 1.5px solid rgba(0,204,53,.4);
+    text-decoration: none;
+    transition: border-color .2s, background .2s;
+  }
+  .btn-hero-outline:hover { border-color: var(--neon); background: rgba(0,204,53,.06); }
+
+  .hero-stats {
+    display: flex; gap: 2.5rem;
+    padding-top: 1.75rem;
+    border-top: 1px solid rgba(0,204,53,.12);
+  }
+  .stat-val {
+    font-family: 'Playfair Display', serif;
+    font-weight: 900; font-size: 2.2rem; line-height: 1;
+    background: linear-gradient(135deg, #00CC35, #22FF55);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .stat-label { font-size: .78rem; color: var(--text-lt); margin-top: .25rem; }
+
+  /* Right column: HUD telemetry card */
+  .hud-card {
+    position: relative;
+    background: rgba(12,22,12,.7);
+    border: 1px solid rgba(0,204,53,.2);
+    border-radius: 1.25rem;
+    padding: 2rem;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 0 60px rgba(0,204,53,.08), 0 20px 60px rgba(0,0,0,.5);
+  }
+  .hud-corner {
+    position: absolute; width: 14px; height: 14px;
+    border-color: rgba(0,204,53,.5);
+    border-style: solid;
+  }
+  .hud-corner.tl { top: 10px; left: 10px; border-width: 1.5px 0 0 1.5px; }
+  .hud-corner.tr { top: 10px; right: 10px; border-width: 1.5px 1.5px 0 0; }
+  .hud-corner.bl { bottom: 10px; left: 10px; border-width: 0 0 1.5px 1.5px; }
+  .hud-corner.br { bottom: 10px; right: 10px; border-width: 0 1.5px 1.5px 0; }
+
+  .hud-title {
+    font-size: .65rem; font-weight: 700; letter-spacing: .15em; text-transform: uppercase;
+    color: var(--neon); margin-bottom: 1rem;
+    display: flex; align-items: center; gap: .5rem;
+  }
+  .hud-title::before { content:''; display:block; width:20px; height:1px; background:var(--neon); }
+
+  /* Drone illustration area */
+  .drone-visual {
+    background: rgba(0,204,53,0.04);
+    border: 1px solid rgba(0,204,53,.1);
+    border-radius: .75rem;
+    height: 160px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1.25rem;
+    position: relative; overflow: hidden;
+  }
+  .drone-pulse {
+    width: 80px; height: 80px; border-radius: 50%;
+    border: 1px solid rgba(0,204,53,.3);
+    display: flex; align-items: center; justify-content: center;
+    animation: ring-pulse 2.5s ease-in-out infinite;
+    position: relative;
+  }
+  @keyframes ring-pulse {
+    0%,100% { box-shadow: 0 0 0 0 rgba(0,204,53,.3); }
+    50%      { box-shadow: 0 0 0 20px rgba(0,204,53,0); }
+  }
+  .drone-pulse::before {
+    content: '✈';
+    font-size: 2rem;
+    filter: drop-shadow(0 0 10px var(--neon));
+    animation: float-drone 3s ease-in-out infinite;
+    color: var(--neon);
+  }
+  @keyframes float-drone {
+    0%,100% { transform: translateY(0) rotate(-5deg); }
+    50%      { transform: translateY(-8px) rotate(5deg); }
+  }
+  .drone-tag {
+    position: absolute; bottom: 8px; right: 10px;
+    font-size: .6rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em;
+    color: var(--neon); background: rgba(0,204,53,.1); padding: .2rem .5rem; border-radius: 4px;
+    border: 1px solid rgba(0,204,53,.2);
+  }
+
+  .hud-metrics { display: grid; grid-template-columns: repeat(3,1fr); gap: .75rem; margin-bottom: 1rem; }
+  .hud-metric { text-align: center; background: rgba(0,0,0,.3); border-radius: .5rem; padding: .6rem .25rem; border: 1px solid rgba(0,204,53,.08); }
+  .hud-metric-val { font-size: .95rem; font-weight: 700; color: var(--neon-lt); font-family: monospace; }
+  .hud-metric-lbl { font-size: .55rem; color: var(--text-lt); text-transform: uppercase; letter-spacing: .08em; margin-top: .2rem; }
+
+  .hud-status {
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: .65rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--neon);
+    background: rgba(0,204,53,.06); border-radius: .5rem;
+    padding: .5rem .75rem;
+    border: 1px solid rgba(0,204,53,.12);
+  }
+  .status-dot { width:6px; height:6px; border-radius:50%; background:var(--neon); animation: pulse-dot 1.5s ease-in-out infinite; display:inline-block; margin-right:.4rem; }
+
+  /* ─────────────────────────────────────────
+     TRUST BAR
+  ───────────────────────────────────────── */
+  .trust-bar {
+    background: var(--panel);
+    border-top: 2px solid var(--straw);
+    border-bottom: 1px solid rgba(0,204,53,.1);
+    padding: 1.25rem 2.5rem;
+  }
+  .trust-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 1rem; flex-wrap: wrap;
+  }
+  .trust-item {
+    display: flex; align-items: center; gap: .6rem;
+    font-size: .82rem; font-weight: 600; color: var(--text-mid);
+  }
+  .trust-item .icon { color: var(--gold); font-size: 1rem; }
+  .trust-sep { width: 1px; height: 20px; background: rgba(0,204,53,.15); flex-shrink: 0; }
+
+  /* ─────────────────────────────────────────
+     SERVICIOS — cards glassmorphism
+  ───────────────────────────────────────── */
+  .section {
+    padding: 6rem 2.5rem;
+    position: relative;
+  }
+  .section-inner { max-width: 1200px; margin: 0 auto; }
+  .section-sep { border-top: 1px solid transparent; border-image: linear-gradient(90deg,transparent,rgba(0,204,53,.2) 30%,rgba(0,204,53,.2) 70%,transparent) 1; }
+
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: .6rem; margin-bottom: .75rem;
+  }
+  .eyebrow::before { content:''; width:1.75rem; height:2px; background:var(--neon); display:block; }
+  .eyebrow span { font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .14em; color: var(--neon); }
+
+  .section-h2 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    line-height: 1.12;
+    color: var(--text);
+    margin-bottom: .75rem;
+  }
+  .section-sub { color: var(--text-mid); font-size: 1rem; max-width: 520px; line-height: 1.6; }
+
+  .serv-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1.25rem; margin-top: 3.5rem; }
+  .serv-card {
+    background: rgba(12,22,12,.85);
+    border: 1px solid rgba(0,204,53,.14);
+    border-radius: 1rem;
+    overflow: hidden;
+    position: relative;
+    transition: border-color .3s, transform .2s, box-shadow .3s;
+    cursor: pointer;
+  }
+  .serv-card:hover {
+    border-color: rgba(0,204,53,.4);
+    transform: translateY(-6px);
+    box-shadow: 0 16px 48px rgba(0,0,0,.5), 0 0 30px rgba(0,204,53,.1);
+  }
+  .serv-img {
+    height: 160px;
+    background: linear-gradient(135deg, #0C160C, #112011);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2.5rem; position: relative; overflow: hidden;
+  }
+  .serv-img-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom, transparent 40%, rgba(3,8,5,.9) 100%);
+  }
+  .serv-num {
+    position: absolute; top: 10px; left: 14px;
+    font-family: 'Playfair Display', serif; font-weight: 900; font-size: 2rem;
+    color: rgba(0,204,53,.25);
+  }
+  .serv-body { padding: 1.25rem; }
+  .serv-badge {
+    font-size: .6rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em;
+    padding: .2rem .55rem; border-radius: 999px; display: inline-block; margin-bottom: .6rem;
+  }
+  .badge-avail { background: rgba(90,138,60,.2); color: #7DB55A; border: 1px solid rgba(90,138,60,.35); }
+  .badge-soon  { background: rgba(74,143,163,.15); color: #6eb8d0; border: 1px solid rgba(74,143,163,.3); }
+  .serv-name { font-weight: 700; font-size: .95rem; color: var(--text); margin-bottom: .4rem; }
+  .serv-desc { font-size: .82rem; color: var(--text-mid); line-height: 1.5; }
+
+  /* Price band */
+  .price-band {
+    margin-top: 3rem;
+    padding: 2.5rem 3rem;
+    border-radius: 1.25rem;
+    display: flex; align-items: center; justify-content: space-between; gap: 2rem;
+    background: linear-gradient(135deg, rgba(0,204,53,.07) 0%, rgba(3,8,5,0) 60%),
+                rgba(12,22,12,.9);
+    border: 1px solid rgba(0,204,53,.22);
+    position: relative; overflow: hidden;
+  }
+  .price-band::before {
+    content:''; position:absolute; left:0; top:0; bottom:0; width:3px;
+    background: linear-gradient(to bottom, var(--neon), var(--straw));
+    border-radius: 3px 0 0 3px;
+  }
+  .price-val {
+    font-family: 'Playfair Display', serif;
+    font-weight: 900; font-size: 5rem; line-height: 1;
+    color: var(--gold); display: inline;
+  }
+  .price-unit { font-size: 1.25rem; color: var(--text-mid); margin-left: .25rem; }
+  .price-note { font-size: .85rem; color: var(--text-lt); margin-top: .4rem; }
+  .btn-gold {
+    background: var(--straw); color: var(--void);
+    font-weight: 700; font-size: 1rem; padding: .9rem 2rem;
+    border-radius: .5rem; text-decoration: none; white-space: nowrap;
+    transition: background .2s, transform .15s, box-shadow .2s;
+    display: inline-block;
+  }
+  .btn-gold:hover { background: var(--gold); transform: translateY(-2px); box-shadow: 0 6px 24px rgba(232,184,75,.3); }
+
+  /* ─────────────────────────────────────────
+     STATS + PASOS
+  ───────────────────────────────────────── */
+  .stats-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.25rem; margin-top: 2.5rem; }
+  .stat-card {
+    background: rgba(12,22,12,.9);
+    border: 1px solid rgba(0,204,53,.14);
+    border-radius: 1rem; padding: 2rem;
+    text-align: center;
+    transition: border-color .3s;
+  }
+  .stat-card:hover { border-color: rgba(0,204,53,.35); }
+  .stat-big {
+    font-family: 'Playfair Display', serif; font-weight: 900;
+    font-size: clamp(2.8rem, 5vw, 4rem); line-height: 1;
+    background: linear-gradient(135deg, var(--neon), var(--neon-lt));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .stat-lbl { font-size: .85rem; color: var(--text-mid); margin-top: .5rem; font-weight: 500; }
+
+  .steps-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1.25rem; margin-top: 3rem; position: relative; }
+  .steps-line {
+    position: absolute; top: 28px; left: 12.5%; right: 12.5%; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(0,204,53,.3), rgba(0,204,53,.3), transparent);
+  }
+  .step-card {
+    background: rgba(12,22,12,.9);
+    border: 1px solid rgba(0,204,53,.14);
+    border-radius: 1rem; padding: 1.5rem;
+    position: relative; z-index: 1;
+    transition: border-color .3s, transform .2s;
+  }
+  .step-card:hover { border-color: rgba(0,204,53,.35); transform: translateY(-4px); }
+  .step-icon {
+    width: 52px; height: 52px; border-radius: .75rem;
+    background: rgba(0,204,53,.08); border: 1px solid rgba(0,204,53,.2);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--neon); font-size: 1.3rem;
+    margin-bottom: 1rem;
+    position: relative;
+  }
+  .step-num {
+    font-family: 'Playfair Display', serif; font-weight: 900;
+    font-size: 3.5rem; line-height: 1;
+    color: rgba(0,204,53,.08);
+    position: absolute; right: 10px; bottom: -5px;
+  }
+  .step-title { font-weight: 700; font-size: .95rem; color: var(--text); margin-bottom: .4rem; }
+  .step-desc { font-size: .82rem; color: var(--text-mid); line-height: 1.5; }
+
+  /* ─────────────────────────────────────────
+     NOSOTROS — redsideño premium
+  ───────────────────────────────────────── */
+  .nosotros-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+  .big-quote {
+    font-family: 'Playfair Display', serif; font-weight: 900;
+    font-size: clamp(2rem, 3.5vw, 2.8rem); line-height: 1.2;
+    color: var(--text); margin-bottom: 1.5rem;
+  }
+  .big-quote em { font-style: normal; color: var(--neon-lt); }
+  .body-text { font-size: .95rem; color: var(--text-mid); line-height: 1.7; margin-bottom: 1rem; }
+  .team-card {
+    display: flex; align-items: center; gap: 1rem;
+    padding: 1.25rem 1.5rem; border-radius: .875rem;
+    background: rgba(12,22,12,.9);
+    border: 1px solid rgba(0,204,53,.18);
+    margin-top: 2rem;
+  }
+  .avatar {
+    width: 56px; height: 56px; border-radius: 50%;
+    background: linear-gradient(135deg, rgba(0,204,53,.3), rgba(0,100,25,.5));
+    border: 2px solid rgba(0,204,53,.35);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem; flex-shrink: 0;
+  }
+  .founder-name { font-weight: 700; font-size: .95rem; color: var(--text); }
+  .founder-role { font-size: .78rem; color: var(--neon); margin-top: .15rem; }
+  .founder-loc  { font-size: .75rem; color: var(--text-lt); margin-top: .1rem; }
+
+  .tech-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .tech-card {
+    background: rgba(12,22,12,.9);
+    border: 1px solid rgba(0,204,53,.14);
+    border-radius: .875rem; padding: 1.25rem;
+    transition: border-color .3s;
+  }
+  .tech-card:hover { border-color: rgba(0,204,53,.32); }
+  .tech-icon {
+    width: 38px; height: 38px; border-radius: .5rem;
+    background: rgba(0,204,53,.08); color: var(--neon);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; margin-bottom: .75rem;
+  }
+  .tech-name { font-weight: 700; font-size: .88rem; color: var(--text); }
+  .tech-val  { font-size: .75rem; color: var(--neon); font-weight: 600; margin: .1rem 0; }
+  .tech-desc { font-size: .75rem; color: var(--text-mid); line-height: 1.4; margin-top: .25rem; }
+
+  /* ─────────────────────────────────────────
+     CONTACTO — full dark premium
+  ───────────────────────────────────────── */
+  .contact-grid { display: grid; grid-template-columns: 1fr 1.3fr; gap: 4rem; align-items: start; }
+  .contact-label { font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .14em; color: var(--neon); margin-bottom: .5rem; }
+  .contact-info-list { display: flex; flex-direction: column; gap: 1rem; margin-top: 1.5rem; }
+  .contact-item {
+    display: flex; align-items: center; gap: 1rem;
+    padding: .875rem 1.1rem; border-radius: .75rem;
+    background: rgba(12,22,12,.9); border: 1px solid rgba(0,204,53,.12);
+    font-size: .9rem; color: var(--text-mid);
+  }
+  .contact-item .ci-icon { width: 36px; height: 36px; border-radius: .5rem; background: rgba(0,204,53,.08); color:var(--neon); display:flex;align-items:center;justify-content:center; font-size: 1rem; flex-shrink:0; }
+  .wa-btn {
+    display: flex; align-items: center; gap: .75rem;
+    background: #128C7E; color: #fff;
+    font-weight: 700; padding: 1rem 1.5rem;
+    border-radius: .75rem; text-decoration: none; margin-top: 1.5rem;
+    transition: background .2s, transform .15s;
+    font-size: .95rem;
+  }
+  .wa-btn:hover { background: #075E54; transform: translateY(-2px); }
+
+  .form-wrap {
+    background: rgba(12,22,12,.9); border: 1px solid rgba(0,204,53,.18);
+    border-radius: 1.25rem; padding: 2.25rem;
+  }
+  .form-title { font-family:'Playfair Display',serif; font-weight:700; font-size:1.4rem; color:var(--text); margin-bottom:1.5rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+  .form-group { display: flex; flex-direction: column; gap: .35rem; }
+  .form-group label { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--text-lt); }
+  .form-input, .form-select {
+    background: rgba(0,0,0,.4); border: 1px solid rgba(0,204,53,.18);
+    border-radius: .5rem; padding: .75rem 1rem;
+    font-size: .9rem; color: var(--text);
+    font-family: inherit;
+    transition: border-color .2s;
+    outline: none; width: 100%;
+  }
+  .form-input:focus, .form-select:focus { border-color: rgba(0,204,53,.5); }
+  .form-input::placeholder { color: var(--text-lt); }
+  .form-select option { background: #0C160C; }
+  .form-textarea {
+    background: rgba(0,0,0,.4); border: 1px solid rgba(0,204,53,.18);
+    border-radius: .5rem; padding: .75rem 1rem;
+    font-size: .9rem; color: var(--text); font-family: inherit;
+    resize: vertical; min-height: 90px; width: 100%;
+    transition: border-color .2s; outline: none; margin-bottom: 1rem;
+  }
+  .form-textarea:focus { border-color: rgba(0,204,53,.5); }
+  .form-textarea::placeholder { color: var(--text-lt); }
+  .form-submit {
+    width: 100%; padding: 1rem;
+    background: var(--neon); color: var(--void);
+    font-weight: 700; font-size: 1rem; font-family: inherit;
+    border: none; border-radius: .5rem; cursor: pointer;
+    transition: background .2s, transform .15s, box-shadow .2s;
+  }
+  .form-submit:hover { background: var(--neon-lt); transform: translateY(-2px); box-shadow: 0 6px 24px rgba(0,204,53,.35); }
+
+  /* ─────────────────────────────────────────
+     FOOTER
+  ───────────────────────────────────────── */
+  .footer {
+    background: var(--void);
+    border-top: 1px solid rgba(0,204,53,.1);
+    padding: 2.5rem 2.5rem;
+  }
+  .footer-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 1rem; flex-wrap: wrap;
+  }
+  .footer-logo { font-family: 'Playfair Display',serif; font-weight:900; font-size:1.1rem; color:var(--text); }
+  .footer-logo span { color: var(--neon); }
+  .footer-copy { font-size: .8rem; color: var(--text-lt); }
+  .footer-links { display: flex; gap: 1.5rem; }
+  .footer-links a { font-size: .82rem; color: var(--text-lt); text-decoration: none; transition: color .2s; }
+  .footer-links a:hover { color: var(--neon-lt); }
+
+  /* ── Approval UI ── */
+  .approve-bar {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: rgba(3,8,5,.95); border-top: 2px solid rgba(0,204,53,.3);
+    backdrop-filter: blur(16px);
+    padding: 1rem 2.5rem;
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+    z-index: 1000;
+  }
+  .approve-msg { font-size: .9rem; color: var(--text-mid); }
+  .approve-msg strong { color: var(--text); }
+  .approve-btns { display: flex; gap: .75rem; }
+  .btn-approve {
+    background: var(--neon); color: var(--void); font-weight: 700; font-size: .9rem;
+    padding: .65rem 1.5rem; border-radius: .5rem; border: none; cursor: pointer;
+    transition: background .2s, transform .15s;
+  }
+  .btn-approve:hover { background: var(--neon-lt); transform: translateY(-1px); }
+  .btn-revise {
+    background: transparent; color: var(--text-mid); font-weight: 600; font-size: .9rem;
+    padding: .65rem 1.25rem; border-radius: .5rem; border: 1px solid rgba(0,204,53,.25); cursor: pointer;
+    transition: border-color .2s, color .2s;
+  }
+  .btn-revise:hover { border-color: rgba(0,204,53,.5); color: var(--text); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="page-header">
+  <div class="logo">ICARUS<span>.</span></div>
+  <nav class="nav-links">
+    <a href="#servicios">Servicios</a>
+    <a href="#como-funciona">Proceso</a>
+    <a href="#nosotros">Nosotros</a>
+    <a href="#contacto">Contacto</a>
+  </nav>
+  <a href="#contacto" class="nav-cta">Cotizar gratis</a>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-dots"></div>
+  <div class="hero-aurora"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-scan"></div>
+
+  <!-- Wave SVG -->
+  <div class="hero-waves">
+    <div class="hero-wave-glow"></div>
+    <svg style="position:absolute;bottom:0;width:100%;height:160px" viewBox="0 0 1440 160" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="wg2" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="rgba(0,204,53,0.25)"/>
+          <stop offset="100%" stop-color="rgba(0,204,53,0.03)"/>
+        </linearGradient>
+      </defs>
+      <path fill="url(#wg2)">
+        <animate attributeName="d" dur="5s" repeatCount="indefinite"
+          values="
+            M0,80 C360,30 720,130 1080,60 C1260,24 1380,90 1440,70 L1440,160 L0,160 Z;
+            M0,60 C300,100 660,20 1000,90 C1200,130 1360,50 1440,80 L1440,160 L0,160 Z;
+            M0,90 C320,40 680,120 1020,55 C1220,15 1380,85 1440,65 L1440,160 L0,160 Z;
+            M0,80 C360,30 720,130 1080,60 C1260,24 1380,90 1440,70 L1440,160 L0,160 Z
+          "
+        />
+      </path>
+      <path fill="rgba(0,204,53,0.06)">
+        <animate attributeName="d" dur="7s" repeatCount="indefinite"
+          values="
+            M0,100 C400,50 800,140 1200,80 C1340,55 1410,95 1440,90 L1440,160 L0,160 Z;
+            M0,75 C350,115 700,40 1100,100 C1280,130 1400,65 1440,85 L1440,160 L0,160 Z;
+            M0,110 C380,60 760,130 1140,70 C1300,40 1400,100 1440,95 L1440,160 L0,160 Z;
+            M0,100 C400,50 800,140 1200,80 C1340,55 1410,95 1440,90 L1440,160 L0,160 Z
+          "
+        />
+      </path>
+    </svg>
+  </div>
+
+  <div class="hero-content">
+    <!-- Left -->
+    <div>
+      <div class="hero-eyebrow">
+        <span class="dot"></span>
+        Azuero, Panamá — Desde Las Tablas
+      </div>
+      <h1 class="hero-h1">
+        <span class="line1">Tu cosecha</span>
+        <span class="line2">merece la mejor</span>
+        <span class="line3">protección</span>
+      </h1>
+      <p class="hero-sub">
+        Fumigación agrícola con drones DJI Agras T50. Más cobertura, menos insumo, sin dañar el suelo. Cobro por hectárea real.
+      </p>
+      <div class="hero-ctas">
+        <a href="#contacto" class="btn-hero-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+          Pedir cotización gratis
+        </a>
+        <a href="#como-funciona" class="btn-hero-outline">
+          ¿Cómo funciona?
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="stat-val">+500</div>
+          <div class="stat-label">Hectáreas fumigadas</div>
+        </div>
+        <div>
+          <div class="stat-val">10×</div>
+          <div class="stat-label">Más rápido que manual</div>
+        </div>
+        <div>
+          <div class="stat-val">30%</div>
+          <div class="stat-label">Menos insumo por ha</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: HUD card -->
+    <div>
+      <div class="hud-card">
+        <div class="hud-corner tl"></div>
+        <div class="hud-corner tr"></div>
+        <div class="hud-corner bl"></div>
+        <div class="hud-corner br"></div>
+        <div class="hud-title">DJI Agras T50 — Live Feed</div>
+        <div class="drone-visual">
+          <div class="drone-pulse"></div>
+          <div class="drone-tag">VUELO ACTIVO</div>
+        </div>
+        <div class="hud-metrics">
+          <div class="hud-metric"><div class="hud-metric-val">12 m</div><div class="hud-metric-lbl">Altitud</div></div>
+          <div class="hud-metric"><div class="hud-metric-val">7 m/s</div><div class="hud-metric-lbl">Veloc.</div></div>
+          <div class="hud-metric"><div class="hud-metric-val">100%</div><div class="hud-metric-lbl">Cob.</div></div>
+        </div>
+        <div class="hud-status">
+          <span><span class="status-dot"></span>SISTEMA ACTIVO</span>
+          <span>DJI AGRAS T50 ×2</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-inner">
+    <div class="trust-item"><span class="icon">✈</span> DJI Agras T50</div>
+    <div class="trust-sep"></div>
+    <div class="trust-item"><span class="icon">🛡</span> Pilotos certificados ANAC</div>
+    <div class="trust-sep"></div>
+    <div class="trust-item"><span class="icon">📍</span> Base en Las Tablas</div>
+    <div class="trust-sep"></div>
+    <div class="trust-item"><span class="icon">📋</span> Reporte por vuelo · cobro por ha real</div>
+    <div class="trust-sep"></div>
+    <div class="trust-item"><span class="icon">📱</span> Cotización en menos de 24h</div>
+  </div>
+</div>
+
+<!-- SERVICIOS -->
+<section class="section section-sep" id="servicios" style="background:var(--dark)">
+  <div class="section-inner">
+    <div class="eyebrow"><span>Nuestros Servicios</span></div>
+    <h2 class="section-h2">Tecnología para cada<br>etapa de tu cultivo</h2>
+    <p class="section-sub">Desde la fumigación hasta el análisis de datos, cubrimos todo el ciclo productivo de tu finca.</p>
+
+    <div class="serv-grid">
+      <div class="serv-card">
+        <div class="serv-img">🌾<div class="serv-img-overlay"></div><div class="serv-num">01</div></div>
+        <div class="serv-body">
+          <span class="serv-badge badge-avail">Disponible</span>
+          <div class="serv-name">Fumigación Inteligente</div>
+          <div class="serv-desc">Aplicación con boquillas de precisión, cobertura uniforme y registro digital de cada vuelo.</div>
+        </div>
+      </div>
+      <div class="serv-card">
+        <div class="serv-img">🔍<div class="serv-img-overlay"></div><div class="serv-num">02</div></div>
+        <div class="serv-body">
+          <span class="serv-badge badge-avail">Disponible</span>
+          <div class="serv-name">Monitoreo de Cultivos</div>
+          <div class="serv-desc">Inspección aérea para detectar plagas, estrés hídrico y deficiencias nutricionales.</div>
+        </div>
+      </div>
+      <div class="serv-card">
+        <div class="serv-img">📡<div class="serv-img-overlay"></div><div class="serv-num">03</div></div>
+        <div class="serv-body">
+          <span class="serv-badge badge-soon">Próximamente</span>
+          <div class="serv-name">Análisis NDVI</div>
+          <div class="serv-desc">Mapas multiespectrales para análisis de vegetación y planificación de tratamientos.</div>
+        </div>
+      </div>
+      <div class="serv-card">
+        <div class="serv-img">🗺️<div class="serv-img-overlay"></div><div class="serv-num">04</div></div>
+        <div class="serv-body">
+          <span class="serv-badge badge-soon">Próximamente</span>
+          <div class="serv-name">Asesoría Tecnológica</div>
+          <div class="serv-desc">Capacitación en uso del portal, interpretación de reportes y planificación de vuelos.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="price-band">
+      <div>
+        <div style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--neon);margin-bottom:.5rem">Precio base</div>
+        <div><span class="price-val">$20</span><span class="price-unit">/ hectárea</span></div>
+        <div class="price-note">Cobro por hectárea real volada · Reporte digital incluido</div>
+      </div>
+      <a href="#contacto" class="btn-gold">Pedir cotización gratis →</a>
+    </div>
+  </div>
+</section>
+
+<!-- COMO FUNCIONA + STATS -->
+<section class="section section-sep" id="como-funciona" style="background:var(--panel)">
+  <div class="section-inner">
+    <div class="eyebrow"><span>Resultados</span></div>
+    <h2 class="section-h2">Números que hablan</h2>
+    <div class="stats-row">
+      <div class="stat-card"><div class="stat-big">30%</div><div class="stat-lbl">Menos uso de insumos</div></div>
+      <div class="stat-card"><div class="stat-big">25%</div><div class="stat-lbl">Aumento en rendimiento</div></div>
+      <div class="stat-card"><div class="stat-big">10×</div><div class="stat-lbl">Más rápido que métodos manuales</div></div>
+    </div>
+
+    <div style="margin-top:4rem">
+      <div class="eyebrow"><span>Cómo Funciona</span></div>
+      <h2 class="section-h2">De la cotización al reporte<br>en días</h2>
+      <div class="steps-grid">
+        <div class="steps-line"></div>
+        <div class="step-card">
+          <div class="step-icon">📞<div class="step-num">1</div></div>
+          <div class="step-title">Nos contactás</div>
+          <div class="step-desc">Enviás los datos de tu finca y condiciones del cultivo por WhatsApp o formulario.</div>
+        </div>
+        <div class="step-card">
+          <div class="step-icon">📋<div class="step-num">2</div></div>
+          <div class="step-title">Recibís la cotización</div>
+          <div class="step-desc">En menos de 24 horas te enviamos precio exacto y disponibilidad de fechas.</div>
+        </div>
+        <div class="step-card">
+          <div class="step-icon">✈<div class="step-num">3</div></div>
+          <div class="step-title">Agendamos el vuelo</div>
+          <div class="step-desc">Nuestro piloto certificado llega a tu finca y ejecuta con precisión DJI T50.</div>
+        </div>
+        <div class="step-card">
+          <div class="step-icon">📊<div class="step-num">4</div></div>
+          <div class="step-title">Reporte y cobro</div>
+          <div class="step-desc">Recibís el reporte digital con mapa de cobertura. Cobramos solo las hectáreas reales.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NOSOTROS -->
+<section class="section section-sep" id="nosotros" style="background:var(--dark)">
+  <div class="section-inner">
+    <div class="nosotros-grid">
+      <div>
+        <div class="eyebrow"><span>Quiénes somos</span></div>
+        <h2 class="big-quote">Nacidos en Azuero,<br><em>construidos para el campo</em></h2>
+        <p class="body-text">Somos una empresa panameña fundada en Las Tablas, Los Santos. Crecimos viendo la dureza del trabajo agrícola y decidimos traer tecnología de precisión al campo de Azuero.</p>
+        <p class="body-text">Operamos con drones <strong style="color:var(--text)">DJI Agras T50</strong> — la plataforma más avanzada de fumigación — con pilotos certificados ANAC.</p>
+        <p class="body-text">Cada vuelo genera un reporte digital y el cobro es por las hectáreas realmente fumigadas, sin estimaciones.</p>
+        <div class="team-card">
+          <div class="avatar">👤</div>
+          <div>
+            <div class="founder-name">Víctor Vergara</div>
+            <div class="founder-role">Fundador &amp; Piloto Certificado ANAC</div>
+            <div class="founder-loc">Las Tablas, Los Santos, Panamá</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <p style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--neon);margin-bottom:1.25rem">Tecnología y certificaciones</p>
+        <div class="tech-grid">
+          <div class="tech-card">
+            <div class="tech-icon">✈</div>
+            <div class="tech-name">DJI Agras T50</div>
+            <div class="tech-val">2 unidades</div>
+            <div class="tech-desc">40 kg carga · 16 boquillas · RTK integrado</div>
+          </div>
+          <div class="tech-card">
+            <div class="tech-icon">⚡</div>
+            <div class="tech-name">Generador D12500iE</div>
+            <div class="tech-val">DJI</div>
+            <div class="tech-desc">Autonomía de carga en campo sin red eléctrica</div>
+          </div>
+          <div class="tech-card">
+            <div class="tech-icon">🛡</div>
+            <div class="tech-name">Certificados ANAC</div>
+            <div class="tech-val">Panamá</div>
+            <div class="tech-desc">Licencia vigente de operación de drones agrícolas</div>
+          </div>
+          <div class="tech-card">
+            <div class="tech-icon">💻</div>
+            <div class="tech-name">Icarus Platform</div>
+            <div class="tech-val">Portal Web</div>
+            <div class="tech-desc">Sistema digital para registro, solicitud e historial</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section class="section section-sep" id="contacto" style="background:var(--panel)">
+  <div class="section-inner">
+    <div class="contact-grid">
+      <div>
+        <div class="eyebrow"><span>Contacto</span></div>
+        <h2 class="section-h2">Hablemos de<br>tu finca</h2>
+        <p class="section-sub" style="margin-bottom:0">Respondemos en menos de 24 horas. Sin compromiso.</p>
+        <div class="contact-info-list">
+          <div class="contact-item"><div class="ci-icon">📍</div>Las Tablas, Los Santos, Panamá</div>
+          <div class="contact-item"><div class="ci-icon">✉️</div>info@icarusdronespty.com</div>
+          <div class="contact-item"><div class="ci-icon">🕐</div>Lun–Sáb · 7:00 am – 6:00 pm</div>
+        </div>
+        <a href="#" class="wa-btn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+          Escribir por WhatsApp
+        </a>
+      </div>
+      <div class="form-wrap">
+        <div class="form-title">Solicitar cotización</div>
+        <div class="form-row">
+          <div class="form-group"><label>Nombre</label><input class="form-input" placeholder="Tu nombre completo" type="text"></div>
+          <div class="form-group"><label>WhatsApp</label><input class="form-input" placeholder="+507 6000-0000" type="tel"></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Ubicación de finca</label><input class="form-input" placeholder="Ej: Las Tablas, Los Santos" type="text"></div>
+          <div class="form-group"><label>Cultivo</label><select class="form-select"><option value="">Seleccionar cultivo</option><option>Arroz</option><option>Maíz</option><option>Caña de azúcar</option><option>Yuca</option><option>Otro</option></select></div>
+        </div>
+        <div class="form-group" style="margin-bottom:1rem"><label>Hectáreas aproximadas</label><input class="form-input" placeholder="Ej: 25 hectáreas" type="text"></div>
+        <textarea class="form-textarea" placeholder="Información adicional sobre tu finca o cultivo..."></textarea>
+        <button class="form-submit">Enviar solicitud →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-logo">ICARUS<span>.</span></div>
+    <div class="footer-copy">© 2025 Icarus Drones · Las Tablas, Panamá · icarusdronespty.com</div>
+    <div class="footer-links">
+      <a href="#servicios">Servicios</a>
+      <a href="#nosotros">Nosotros</a>
+      <a href="#contacto">Contacto</a>
+    </div>
+  </div>
+</footer>
+
+<!-- APPROVAL BAR -->
+<div class="approve-bar">
+  <div class="approve-msg"><strong>Rediseño Full Dark Premium</strong> — ¿Te gusta esta dirección? Aprobá para pasar a implementación o decime qué cambiar.</div>
+  <div class="approve-btns">
+    <button class="btn-revise" onclick="sendFeedback('revise')">Quiero cambios</button>
+    <button class="btn-approve" onclick="sendFeedback('approve')">✓ Aprobado, implementar</button>
+  </div>
+</div>
+
+<script src="http://localhost:57040/helper.js"></script>
+<script>
+  function sendFeedback(type) {
+    if(window.recordChoice) recordChoice(type, type === 'approve' ? 'Aprobado para implementar' : 'Solicita cambios');
+    const bar = document.querySelector('.approve-bar');
+    if(type === 'approve') {
+      bar.innerHTML = '<div style="color:var(--neon);font-weight:700;font-size:.95rem;margin:0 auto">✓ ¡Aprobado! Avisame en el chat para comenzar la implementación.</div>';
+    } else {
+      bar.innerHTML = '<div style="color:var(--text-mid);font-size:.9rem;margin:0 auto">Escribime en el chat qué querés cambiar y lo ajusto.</div>';
+    }
+  }
+</script>
+</body>
+</html>

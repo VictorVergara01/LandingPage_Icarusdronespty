@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Users/victo/.claude/plugins/cache/ui-ux-pro-max-skill/ui-ux-pro-max/2.5.0/.claude/skills/ui-ux-pro-max/**)",
+      "Bash(python3 scripts/search.py \"agricultural drone spraying premium dark earthy luxury agtech landing page\" --design-system -p \"Icarus Drones\" -f markdown)",
+      "Bash(python scripts/search.py \"agricultural drone spraying premium dark earthy luxury agtech landing page\" --design-system -p \"Icarus Drones\" -f markdown)",
+      "Bash(python scripts/search.py \"agricultural drone service premium dark earthy luxury agtech landing page\" --design-system -p \"Icarus Drones\" -f markdown)",
+      "Bash(python scripts/search.py \"landing page agricultural service\" --domain landing -f markdown)"
+    ]
+  }
+}
