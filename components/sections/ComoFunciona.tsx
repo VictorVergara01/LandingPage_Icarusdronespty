@@ -111,6 +111,7 @@ export function ComoFunciona() {
           <div className="text-center mb-12">
             <SectionEyebrow>Cómo Funciona</SectionEyebrow>
             <h2
+              id="como-funciona-heading"
               className="font-serif font-bold leading-tight"
               style={{ fontSize: 'clamp(2rem, 4vw, 3.2rem)', color: 'var(--text)' }}
             >

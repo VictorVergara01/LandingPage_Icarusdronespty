@@ -4,6 +4,7 @@ export function Footer() {
   return (
     <footer
       className="py-7"
+      aria-label="Pie de página"
       style={{ backgroundColor: 'var(--void)', borderTop: '1px solid rgba(0,204,53,0.1)' }}
     >
       <div className="container-xl">
@@ -22,7 +23,7 @@ export function Footer() {
 
           {/* Copyright */}
           <p className="text-xs" style={{ color: 'var(--text-lt)' }}>
-            © 2025 Icarus Drones · Las Tablas, Panamá · icarusdronespty.com
+            © {new Date().getFullYear()} Icarus Drones · Las Tablas, Panamá
           </p>
 
           {/* Links */}
