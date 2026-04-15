@@ -48,7 +48,7 @@ export function Servicios() {
     >
       <div className="container-xl">
         <RevealWrapper>
-          <div className="text-center mb-14">
+          <div className="text-center mb-16">
             <SectionEyebrow>Nuestros Servicios</SectionEyebrow>
             <h2
               id="servicios-heading"
@@ -96,7 +96,7 @@ export function Servicios() {
                 </div>
 
                 {/* Content */}
-                <div className="flex flex-col flex-1 p-5 gap-3">
+                <div className="flex flex-col flex-1 p-6 gap-4">
                   <div className="flex items-center justify-between">
                     <div
                       className="w-9 h-9 rounded-lg flex items-center justify-center"

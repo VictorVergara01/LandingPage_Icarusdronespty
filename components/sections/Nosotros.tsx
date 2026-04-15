@@ -97,7 +97,7 @@ export function Nosotros() {
               <div className="grid sm:grid-cols-2 gap-5">
                 {techCards.map((card, i) => (
                   <RevealWrapper key={card.title} delay={100 + i * 80}>
-                    <div className="card-dark p-6 h-full">
+                    <div className="card-dark p-7 h-full">
                       <div
                         className="w-10 h-10 rounded-lg flex items-center justify-center mb-3"
                         style={{ backgroundColor: 'rgba(0,204,53,0.1)', color: 'var(--neon)' }}
@@ -124,7 +124,7 @@ export function Nosotros() {
       >
         <div className="container-xl">
           <RevealWrapper>
-            <div className="text-center mb-10">
+            <div className="text-center mb-14">
               <SectionEyebrow>Testimonios</SectionEyebrow>
               <h2
                 id="testimonios-heading"

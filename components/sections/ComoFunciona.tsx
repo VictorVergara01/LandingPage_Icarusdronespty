@@ -86,7 +86,7 @@ export function ComoFunciona() {
 
         {/* ── Stats ── */}
         <RevealWrapper>
-          <div className="text-center mb-10">
+          <div className="text-center mb-14">
             <SectionEyebrow>Resultados que Impactan</SectionEyebrow>
             <h2
               id="resultados-heading"
@@ -108,7 +108,7 @@ export function ComoFunciona() {
 
         {/* ── How it works ── */}
         <RevealWrapper>
-          <div className="text-center mb-12">
+          <div className="text-center mb-16">
             <SectionEyebrow>Cómo Funciona</SectionEyebrow>
             <h2
               id="como-funciona-heading"
@@ -131,7 +131,7 @@ export function ComoFunciona() {
           <ol className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 relative z-10">
             {pasos.map((p, i) => (
               <RevealWrapper key={p.title} delay={i * 100}>
-                <li className="card-dark p-6 flex flex-col gap-4">
+                <li className="card-dark p-7 flex flex-col gap-5">
                   {/* Icon circle */}
                   <div className="flex items-center gap-3">
                     <div
