@@ -40,8 +40,8 @@ function StatCard({ value, suffix, label, delay }: { value: number; suffix: stri
       className="card-dark p-6 text-center flex flex-col gap-2"
     >
       <p
-        className="font-serif font-black leading-none"
-        style={{ fontSize: 'clamp(2.5rem, 6vw, 3.5rem)', color: 'var(--neon)' }}
+        className="font-serif font-black leading-none text-gradient-green"
+        style={{ fontSize: 'clamp(3rem, 6vw, 4.5rem)' }}
       >
         {count}{suffix}
       </p>
@@ -91,7 +91,7 @@ export function ComoFunciona() {
             <h2
               id="resultados-heading"
               className="font-serif font-bold leading-tight"
-              style={{ fontSize: 'clamp(1.75rem, 4vw, 2.75rem)', color: 'var(--text)' }}
+              style={{ fontSize: 'clamp(2rem, 4vw, 3.2rem)', color: 'var(--text)' }}
             >
               Números que hablan
             </h2>
@@ -112,7 +112,7 @@ export function ComoFunciona() {
             <SectionEyebrow>Cómo Funciona</SectionEyebrow>
             <h2
               className="font-serif font-bold leading-tight"
-              style={{ fontSize: 'clamp(1.75rem, 4vw, 2.75rem)', color: 'var(--text)' }}
+              style={{ fontSize: 'clamp(2rem, 4vw, 3.2rem)', color: 'var(--text)' }}
             >
               De la cotización al reporte en días
             </h2>
