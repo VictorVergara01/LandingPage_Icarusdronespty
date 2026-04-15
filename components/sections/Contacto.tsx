@@ -56,12 +56,12 @@ export function Contacto() {
             <h2
               id="contacto-heading"
               className="font-serif font-bold leading-tight"
-              style={{ fontSize: 'clamp(1.75rem, 4vw, 2.75rem)', color: 'var(--text)' }}
+              style={{ fontSize: 'clamp(2rem, 4vw, 3.2rem)', color: 'var(--text)' }}
             >
-              Llevá tu cultivo al siguiente nivel
+              Hablemos de tu finca
             </h2>
             <p className="mt-3 text-base max-w-lg mx-auto" style={{ color: 'var(--text-mid)' }}>
-              Respondemos en menos de 24 horas con el presupuesto completo para tu finca.
+              Respondemos en menos de 24 horas. Sin compromiso.
             </p>
           </div>
         </RevealWrapper>
@@ -126,6 +126,9 @@ export function Contacto() {
               className="card-dark p-8 flex flex-col gap-6"
               aria-label="Formulario de cotización"
             >
+              <h3 className="font-serif font-bold text-xl" style={{ color: 'var(--text)' }}>
+                Solicitar cotización
+              </h3>
               <div>
                 <label htmlFor="nombre" className="block text-xs font-bold uppercase tracking-widest mb-2" style={{ color: 'var(--text-lt)' }}>
                   Nombre <span aria-hidden="true" style={{ color: 'var(--neon)' }}>*</span>
