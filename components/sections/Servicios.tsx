@@ -53,7 +53,7 @@ export function Servicios() {
             <h2
               id="servicios-heading"
               className="font-serif font-bold leading-tight"
-              style={{ fontSize: 'clamp(1.75rem, 4vw, 2.75rem)', color: 'var(--text)' }}
+              style={{ fontSize: 'clamp(2rem, 4vw, 3.2rem)', color: 'var(--text)' }}
             >
               Tecnología para cada etapa
             </h2>
@@ -68,7 +68,7 @@ export function Servicios() {
           {servicios.map((s, i) => (
             <RevealWrapper key={s.num} delay={i * 90}>
               <article
-                className="card-dark flex flex-col overflow-hidden h-full group"
+                className="card-dark flex flex-col overflow-hidden h-full group transition-transform duration-300 hover:-translate-y-2"
                 aria-label={`Servicio: ${s.name}`}
               >
                 {/* Image */}
@@ -121,16 +121,17 @@ export function Servicios() {
         {/* Price highlight */}
         <RevealWrapper delay={400}>
           <div
-            className="mt-12 p-7 md:p-10 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-8"
+            className="mt-12 p-7 md:p-10 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden"
             style={{
-              background: 'linear-gradient(135deg, rgba(0,204,53,0.08) 0%, rgba(3,8,5,0) 100%)',
-              border: '1px solid rgba(0,204,53,0.25)',
+              background: 'linear-gradient(135deg, rgba(0,204,53,0.07) 0%, rgba(3,8,5,0) 60%), rgba(12,22,12,0.9)',
+              border: '1px solid rgba(0,204,53,0.22)',
             }}
           >
+            <div className="absolute left-0 top-0 bottom-0 w-1 rounded-l-2xl" style={{ background: 'linear-gradient(to bottom, var(--neon), var(--straw))' }} aria-hidden="true" />
             <div>
               <p className="text-xs font-bold uppercase tracking-widest mb-1" style={{ color: 'var(--neon)' }}>Precio base</p>
               <div className="flex items-baseline gap-1">
-                <span className="font-serif font-black" style={{ fontSize: 'clamp(3rem, 8vw, 4.5rem)', color: 'var(--gold)', lineHeight: 1 }}>$20</span>
+                <span className="font-serif font-black" style={{ fontSize: 'clamp(3.5rem, 9vw, 5.5rem)', color: 'var(--gold)', lineHeight: 1 }}>$20</span>
                 <span className="text-lg font-medium" style={{ color: 'var(--text-mid)' }}>/ hectárea</span>
               </div>
               <p className="text-sm mt-1" style={{ color: 'var(--text-lt)' }}>Cobro por la hectárea real volada · Reporte digital incluido</p>
