@@ -29,7 +29,7 @@ export function TrustBar() {
       aria-label="Por qué Icarus Drones"
       style={{
         backgroundColor: 'var(--panel)',
-        borderTop: '1px solid rgba(0,204,53,0.3)',
+        borderTop: '3px solid var(--straw)',
         borderBottom: '1px solid rgba(0,204,53,0.12)',
       }}
     >
@@ -38,7 +38,7 @@ export function TrustBar() {
           <ul className="flex flex-wrap justify-center md:justify-between items-center gap-y-4 gap-x-6" role="list">
             {items.map((item, i) => (
               <li key={i} className="flex items-center gap-2.5 text-sm font-medium" style={{ color: 'var(--text-mid)' }}>
-                <span style={{ color: 'var(--neon)' }}>{item.icon}</span>
+                <span style={{ color: 'var(--gold)' }}>{item.icon}</span>
                 <span dangerouslySetInnerHTML={{ __html: item.label }} />
                 {i < items.length - 1 && (
                   <span className="hidden md:block w-px h-4 ml-3" style={{ backgroundColor: 'rgba(0,204,53,0.2)' }} aria-hidden="true" />
