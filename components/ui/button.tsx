@@ -18,6 +18,10 @@ const buttonVariants = cva(
         destructive:
           "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40",
         link: "text-primary underline-offset-4 hover:underline",
+        neon: "bg-[var(--neon)] text-[var(--void)] font-semibold hover:bg-[var(--neon-lt)] shadow-[0_0_20px_rgba(0,204,53,0.35)] hover:shadow-[0_0_28px_rgba(0,204,53,0.5)] transition-shadow",
+        gold: "bg-[var(--gold)] text-[var(--void)] font-semibold hover:bg-[var(--gold-lt)] shadow-[0_0_20px_rgba(232,184,75,0.3)] hover:shadow-[0_0_28px_rgba(232,184,75,0.5)] transition-shadow",
+        "outline-neon":
+          "border border-[var(--neon)] bg-transparent text-[var(--neon)] hover:bg-[rgba(0,204,53,0.08)] focus-visible:ring-[var(--neon)]/50",
       },
       size: {
         default:

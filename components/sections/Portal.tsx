@@ -73,7 +73,7 @@ export function Portal() {
           <RevealWrapper delay={150}>
             <div
               className="flex flex-col p-8 rounded-2xl h-full"
-              style={{ backgroundColor: 'rgba(12,22,12,0.5)', border: '1px dashed rgba(74,143,163,0.3)', opacity: 0.72 }}
+              style={{ backgroundColor: 'var(--card-surface-dim)', border: '1px dashed rgba(74,143,163,0.35)', opacity: 0.82 }}
             >
               <div className="flex items-start justify-between mb-6">
                 <div className="w-12 h-12 rounded-xl flex items-center justify-center" style={{ backgroundColor: 'rgba(74,143,163,0.1)', color: 'var(--sky)' }}>

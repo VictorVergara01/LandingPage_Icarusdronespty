@@ -56,7 +56,7 @@ export function Cobertura() {
                 </defs>
 
                 {/* Ocean */}
-                <rect width="400" height="350" fill="#0A1A0A" rx="12"/>
+                <rect width="400" height="350" fill="var(--map-ocean)" rx="12"/>
                 <rect width="400" height="350" fill="url(#map-bg)" rx="12"/>
 
                 {/* Grid */}
@@ -68,7 +68,7 @@ export function Cobertura() {
                 {/* Azuero Peninsula */}
                 <path
                   d="M60,30 L360,30 L380,80 L370,130 L340,160 L310,190 L280,230 L255,265 L240,290 L220,320 L200,335 L185,320 L175,295 L160,270 L145,240 L125,210 L100,185 L75,155 L55,120 L45,80 Z"
-                  fill="rgba(0,80,15,0.45)"
+                  fill="var(--map-land)"
                   stroke="rgba(0,204,53,0.3)"
                   strokeWidth="1.5"
                 />
@@ -81,8 +81,8 @@ export function Cobertura() {
                 <circle cx="220" cy="220" r="7" fill="var(--neon)"/>
                 <circle cx="220" cy="220" r="14" fill="none" stroke="var(--neon)" strokeWidth="1" opacity=".4"
                   style={{ animation: 'pulse-ring 2s ease-in-out infinite' }}/>
-                <text x="236" y="215" fontSize="10" fontWeight="700" fill="var(--neon-lt)" fontFamily="serif">Las Tablas</text>
-                <text x="236" y="227" fontSize="8" fill="rgba(0,204,53,0.6)" fontFamily="sans-serif">★ Base</text>
+                <text x="236" y="215" fontSize="10" fontWeight="700" fill="var(--neon)" fontFamily="serif">Las Tablas</text>
+                <text x="236" y="227" fontSize="8" fill="var(--neon)" opacity=".65" fontFamily="sans-serif">★ Base</text>
 
                 {/* Active cities */}
                 {[
@@ -94,7 +94,7 @@ export function Cobertura() {
                   <g key={name}>
                     <circle cx={cx} cy={cy} r="6" fill="rgba(0,204,53,0.15)" stroke="var(--neon)" strokeWidth="1.5"/>
                     <circle cx={cx} cy={cy} r="3" fill="var(--neon)" opacity=".8"/>
-                    <text x={cx+10} y={cy+4} fontSize="9" fill="rgba(238,245,238,0.7)" fontFamily="serif">{name}</text>
+                    <text x={cx+10} y={cy+4} fontSize="9" fill="var(--map-text-primary)" fontFamily="serif">{name}</text>
                   </g>
                 ))}
 
@@ -111,9 +111,9 @@ export function Cobertura() {
 
                 {/* Legend */}
                 <g transform="translate(12,298)">
-                  <rect width="125" height="44" rx="6" fill="rgba(12,22,12,0.85)" stroke="rgba(0,204,53,0.2)" strokeWidth="1"/>
+                  <rect width="125" height="44" rx="6" fill="var(--map-legend-bg)" stroke="rgba(0,122,32,0.25)" strokeWidth="1"/>
                   <circle cx="14" cy="13" r="4" fill="var(--neon)"/>
-                  <text x="22" y="17" fontSize="8.5" fill="rgba(238,245,238,0.7)" fontFamily="sans-serif">Base operativa</text>
+                  <text x="22" y="17" fontSize="8.5" fill="var(--map-text-primary)" fontFamily="sans-serif">Base operativa</text>
                   <circle cx="14" cy="31" r="4" fill="none" stroke="var(--sky)" strokeWidth="1.5" strokeDasharray="2 1.5"/>
                   <text x="22" y="35" fontSize="8.5" fill="var(--sky)" fontFamily="sans-serif">Próximamente</text>
                 </g>
@@ -129,7 +129,7 @@ export function Cobertura() {
                   key={zona.name}
                   className="flex items-center justify-between p-4 rounded-xl transition-all duration-200"
                   style={{
-                    backgroundColor: zona.active ? 'var(--panel)' : 'rgba(12,22,12,0.4)',
+                    backgroundColor: zona.active ? 'var(--panel)' : 'var(--card-surface-dim)',
                     border: `1px solid ${zona.active ? 'rgba(0,204,53,0.18)' : 'rgba(74,143,163,0.15)'}`,
                     opacity: zona.active ? 1 : 0.65,
                   }}

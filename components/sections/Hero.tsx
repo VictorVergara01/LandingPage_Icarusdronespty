@@ -168,7 +168,7 @@ export function Hero() {
         className="absolute inset-0 z-0 pointer-events-none"
         aria-hidden="true"
         style={{
-          background: 'linear-gradient(180deg,rgba(3,8,5,.75) 0%,rgba(3,8,5,.35) 40%,rgba(3,8,5,.7) 100%)',
+          background: 'linear-gradient(180deg,var(--hero-overlay-top) 0%,var(--hero-overlay-mid) 40%,var(--hero-overlay-bot) 100%)',
         }}
       />
 
@@ -251,10 +251,10 @@ export function Hero() {
             <div
               className="relative p-8 rounded-2xl"
               style={{
-                backgroundColor: 'rgba(12,22,12,0.7)',
+                backgroundColor: 'var(--hud-card-bg)',
                 backdropFilter: 'blur(12px)',
-                border: '1px solid rgba(0,204,53,0.2)',
-                boxShadow: '0 0 60px rgba(0,204,53,0.08), 0 20px 60px rgba(0,0,0,0.5)',
+                border: '1px solid rgba(0,122,32,0.25)',
+                boxShadow: 'var(--hud-card-shadow)',
               }}
             >
               {/* Corner marks */}
@@ -323,7 +323,7 @@ export function Hero() {
                   <div
                     key={m.lbl}
                     className="text-center rounded-lg py-2"
-                    style={{ background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(0,204,53,0.08)' }}
+                    style={{ background: 'var(--hud-metric-bg)', border: '1px solid rgba(0,122,32,0.12)' }}
                   >
                     <p className="text-sm font-bold font-mono" style={{ color: 'var(--neon-lt)' }}>{m.val}</p>
                     <p className="text-[10px] uppercase tracking-wide mt-0.5" style={{ color: 'var(--text-lt)' }}>{m.lbl}</p>

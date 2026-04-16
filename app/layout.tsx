@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import { Playfair_Display, Source_Sans_3, Geist } from 'next/font/google';
 import './globals.css';
 import { cn } from "@/lib/utils";
+import { ThemeProvider } from '@/components/layout/ThemeProvider';
 
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
@@ -55,8 +56,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es-PA" className={cn(playfair.variable, sourceSans.variable, "font-sans", geist.variable)}>
-      <body>{children}</body>
+    <html lang="es-PA" className={cn(playfair.variable, sourceSans.variable, "font-sans", geist.variable)} suppressHydrationWarning>
+      <body>
+        <ThemeProvider>{children}</ThemeProvider>
+      </body>
     </html>
   );
 }

@@ -84,7 +84,7 @@ export function Servicios() {
                   {/* Green overlay */}
                   <div
                     className="absolute inset-0 transition-opacity duration-300 group-hover:opacity-60"
-                    style={{ background: 'linear-gradient(180deg, transparent 40%, rgba(3,8,5,0.9) 100%)' }}
+                    style={{ background: 'linear-gradient(180deg, transparent 40%, var(--img-overlay-end) 100%)' }}
                   />
                   {/* Number */}
                   <span

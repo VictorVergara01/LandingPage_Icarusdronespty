@@ -3,6 +3,11 @@ import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { RevealWrapper } from '@/components/ui/RevealWrapper';
 import { SectionEyebrow } from '@/components/ui/SectionEyebrow';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
 interface ContactForm {
   nombre: string;
@@ -13,12 +18,7 @@ interface ContactForm {
   mensaje: string;
 }
 
-const inputCls = 'w-full px-4 py-3 rounded-lg text-sm transition-all duration-200 focus:outline-none min-h-[44px] font-sans';
-const inputStyle = {
-  backgroundColor: 'var(--panel)',
-  border: '1.5px solid rgba(0,204,53,0.18)',
-  color: 'var(--text)',
-};
+const selectCls = 'h-10 w-full min-w-0 rounded-lg border border-input bg-input/30 px-2.5 py-1 text-sm text-foreground transition-colors outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 cursor-pointer';
 
 export function Contacto() {
   const [status, setStatus] = useState<'idle'|'loading'|'success'|'error'>('idle');
@@ -129,52 +129,49 @@ export function Contacto() {
               <h3 className="font-serif font-bold text-xl" style={{ color: 'var(--text)' }}>
                 Solicitar cotización
               </h3>
-              <div>
-                <label htmlFor="nombre" className="block text-xs font-bold uppercase tracking-widest mb-2" style={{ color: 'var(--text-lt)' }}>
+
+              <div className="flex flex-col gap-1.5">
+                <Label htmlFor="nombre" className="text-xs font-bold uppercase tracking-widest" style={{ color: 'var(--text-lt)' }}>
                   Nombre <span aria-hidden="true" style={{ color: 'var(--neon)' }}>*</span>
-                </label>
-                <input id="nombre" type="text" autoComplete="name" placeholder="Tu nombre completo"
-                  className={inputCls}
-                  style={{ ...inputStyle, ...(errors.nombre ? { borderColor: '#dc2626' } : {}) }}
+                </Label>
+                <Input id="nombre" type="text" autoComplete="name" placeholder="Tu nombre completo"
+                  className="h-11"
                   aria-required="true" aria-invalid={!!errors.nombre}
                   {...register('nombre', { required: 'Requerido' })}
                 />
-                {errors.nombre && <p role="alert" className="text-xs mt-1" style={{ color: '#dc2626' }}>{errors.nombre.message}</p>}
+                {errors.nombre && <p role="alert" className="text-xs" style={{ color: '#dc2626' }}>{errors.nombre.message}</p>}
               </div>
 
-              <div>
-                <label htmlFor="whatsapp" className="block text-xs font-bold uppercase tracking-widest mb-2" style={{ color: 'var(--text-lt)' }}>
+              <div className="flex flex-col gap-1.5">
+                <Label htmlFor="whatsapp" className="text-xs font-bold uppercase tracking-widest" style={{ color: 'var(--text-lt)' }}>
                   WhatsApp <span aria-hidden="true" style={{ color: 'var(--neon)' }}>*</span>
-                </label>
-                <input id="whatsapp" type="tel" autoComplete="tel" placeholder="+507 6000-0000"
-                  className={inputCls}
-                  style={{ ...inputStyle, ...(errors.whatsapp ? { borderColor: '#dc2626' } : {}) }}
+                </Label>
+                <Input id="whatsapp" type="tel" autoComplete="tel" placeholder="+507 6000-0000"
+                  className="h-11"
                   aria-required="true" aria-invalid={!!errors.whatsapp}
                   {...register('whatsapp', { required: 'Requerido' })}
                 />
-                {errors.whatsapp && <p role="alert" className="text-xs mt-1" style={{ color: '#dc2626' }}>{errors.whatsapp.message}</p>}
+                {errors.whatsapp && <p role="alert" className="text-xs" style={{ color: '#dc2626' }}>{errors.whatsapp.message}</p>}
               </div>
 
               <div className="grid sm:grid-cols-2 gap-5">
-                <div>
-                  <label htmlFor="ubicacion" className="block text-xs font-bold uppercase tracking-widest mb-2" style={{ color: 'var(--text-lt)' }}>
+                <div className="flex flex-col gap-1.5">
+                  <Label htmlFor="ubicacion" className="text-xs font-bold uppercase tracking-widest" style={{ color: 'var(--text-lt)' }}>
                     Ubicación <span aria-hidden="true" style={{ color: 'var(--neon)' }}>*</span>
-                  </label>
-                  <input id="ubicacion" type="text" placeholder="Las Tablas, Los Santos"
-                    className={inputCls}
-                    style={{ ...inputStyle, ...(errors.ubicacion ? { borderColor: '#dc2626' } : {}) }}
+                  </Label>
+                  <Input id="ubicacion" type="text" placeholder="Las Tablas, Los Santos"
+                    className="h-11"
                     aria-required="true" aria-invalid={!!errors.ubicacion}
                     {...register('ubicacion', { required: 'Requerido' })}
                   />
-                  {errors.ubicacion && <p role="alert" className="text-xs mt-1" style={{ color: '#dc2626' }}>{errors.ubicacion.message}</p>}
+                  {errors.ubicacion && <p role="alert" className="text-xs" style={{ color: '#dc2626' }}>{errors.ubicacion.message}</p>}
                 </div>
-                <div>
-                  <label htmlFor="cultivo" className="block text-xs font-bold uppercase tracking-widest mb-2" style={{ color: 'var(--text-lt)' }}>
+                <div className="flex flex-col gap-1.5">
+                  <Label htmlFor="cultivo" className="text-xs font-bold uppercase tracking-widest" style={{ color: 'var(--text-lt)' }}>
                     Cultivo <span aria-hidden="true" style={{ color: 'var(--neon)' }}>*</span>
-                  </label>
+                  </Label>
                   <select id="cultivo"
-                    className={inputCls}
-                    style={{ ...inputStyle, cursor: 'pointer', ...(errors.cultivo ? { borderColor: '#dc2626' } : {}) }}
+                    className={cn(selectCls, errors.cultivo && 'border-destructive ring-3 ring-destructive/20')}
                     aria-required="true" aria-invalid={!!errors.cultivo}
                     {...register('cultivo', { required: 'Seleccioná' })}
                   >
@@ -185,46 +182,44 @@ export function Contacto() {
                     <option value="cana">Caña de azúcar</option>
                     <option value="otro">Otro</option>
                   </select>
-                  {errors.cultivo && <p role="alert" className="text-xs mt-1" style={{ color: '#dc2626' }}>{errors.cultivo.message}</p>}
+                  {errors.cultivo && <p role="alert" className="text-xs" style={{ color: '#dc2626' }}>{errors.cultivo.message}</p>}
                 </div>
               </div>
 
-              <div>
-                <label htmlFor="hectareas" className="block text-xs font-bold uppercase tracking-widest mb-2" style={{ color: 'var(--text-lt)' }}>
+              <div className="flex flex-col gap-1.5">
+                <Label htmlFor="hectareas" className="text-xs font-bold uppercase tracking-widest" style={{ color: 'var(--text-lt)' }}>
                   Hectáreas <span aria-hidden="true" style={{ color: 'var(--neon)' }}>*</span>
-                </label>
-                <input id="hectareas" type="number" min="1" placeholder="Ej: 25"
-                  className={inputCls}
-                  style={{ ...inputStyle, ...(errors.hectareas ? { borderColor: '#dc2626' } : {}) }}
+                </Label>
+                <Input id="hectareas" type="number" min="1" placeholder="Ej: 25"
+                  className="h-11"
                   aria-required="true" aria-invalid={!!errors.hectareas}
                   {...register('hectareas', { required: 'Requerido', min: { value: 1, message: 'Mínimo 1' } })}
                 />
-                {errors.hectareas && <p role="alert" className="text-xs mt-1" style={{ color: '#dc2626' }}>{errors.hectareas.message}</p>}
+                {errors.hectareas && <p role="alert" className="text-xs" style={{ color: '#dc2626' }}>{errors.hectareas.message}</p>}
               </div>
 
-              <div>
-                <label htmlFor="mensaje" className="block text-xs font-bold uppercase tracking-widest mb-2" style={{ color: 'var(--text-lt)' }}>
+              <div className="flex flex-col gap-1.5">
+                <Label htmlFor="mensaje" className="text-xs font-bold uppercase tracking-widest" style={{ color: 'var(--text-lt)' }}>
                   Mensaje
-                </label>
-                <textarea id="mensaje" rows={3}
-                  className={`${inputCls} resize-none`}
-                  style={{ ...inputStyle, minHeight: 'auto' }}
-                  placeholder="Tipo de plaga, fecha preferida, detalles…"
+                </Label>
+                <Textarea id="mensaje" rows={3} placeholder="Tipo de plaga, fecha preferida, detalles…"
+                  className="resize-none"
                   {...register('mensaje')}
                 />
               </div>
 
-              <button
+              <Button
                 type="submit"
+                variant="neon"
+                size="lg"
                 disabled={status === 'loading'}
-                className="btn-neon justify-center w-full"
-                style={{ opacity: status === 'loading' ? .7 : 1, cursor: status === 'loading' ? 'not-allowed' : 'pointer' }}
+                className="w-full h-12 text-base"
               >
                 {status === 'loading'
                   ? <><svg className="animate-spin" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><circle cx="12" cy="12" r="10" strokeOpacity=".25"/><path d="M12 2a10 10 0 0110 10"/></svg>Enviando…</>
                   : 'Agenda tu demo gratuita'
                 }
-              </button>
+              </Button>
 
               {status === 'success' && (
                 <p role="status" className="text-sm text-center p-3 rounded-lg font-medium"
